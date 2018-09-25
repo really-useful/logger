@@ -1,0 +1,29 @@
+{
+  "name": "@reallyuseful/logger",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build/src/index.js",
+  "types": "build/src/index.d.ts",
+  "scripts": {
+    "clean": "del-cli build",
+    "build": "tsc",
+    "prepare": "npm run clean && npm run build"
+  },
+  "keywords": [
+    "logger",
+    "logging",
+    "logs"
+  ],
+  "author": "Nate Silva <nate@natesilva.com>",
+  "license": "BSD-3-Clause",
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^10.11.0",
+    "del-cli": "^1.1.0",
+    "ts-lint": "^4.5.1",
+    "typescript": "^3.0.3"
+  },
+  "dependencies": {}
+}
