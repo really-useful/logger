@@ -1,13 +1,14 @@
 {
   "name": "@reallyuseful/logger",
   "version": "1.0.0",
-  "description": "",
+  "description": "A useful and simple Node.js logging system.",
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
   "scripts": {
     "clean": "del-cli build",
     "build": "tsc",
-    "prepare": "npm run clean && npm run build"
+    "prepare": "npm run clean && npm run build",
+    "test": "ava"
   },
   "keywords": [
     "logger",
@@ -20,10 +21,18 @@
     "node": ">=8.0.0"
   },
   "devDependencies": {
+    "@types/chalk": "^2.2.0",
+    "@types/highlight.js": "^9.12.3",
     "@types/node": "^10.11.0",
+    "ava": "1.0.0-beta.8",
     "del-cli": "^1.1.0",
-    "ts-lint": "^4.5.1",
+    "ts-node": "^7.0.1",
+    "tslint": "^5.11.0",
     "typescript": "^3.0.3"
   },
-  "dependencies": {}
+  "dependencies": {
+    "cardinal": "^2.1.1",
+    "chalk": "^2.4.1",
+    "highlight.js": "^9.12.0"
+  }
 }
