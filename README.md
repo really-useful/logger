@@ -56,6 +56,6 @@ You can pass anything you like as arguments to the logging functions. Standard p
 logger.info(
   'This is a string',
   { extraInfo: 42 },
-  [ 'Gryffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin']
+  [ 'Gryffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin' ]
 );
 ```
