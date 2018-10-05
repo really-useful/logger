@@ -15,7 +15,7 @@ myLogger.err('💥 An error occurred.', { context: 42 });
 
 ## Logging to external services
 
-By default log messages are printed to the console. They can also be sent to external services. Here are some `Transports` that wil be available:
+By default log messages are printed to the console. They can also be sent to external services. Here are some `Transports` that will be available:
 
 - Log to the console: `ConsoleTransport`
 - AWS CloudWatch Logs
