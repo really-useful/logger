@@ -2,7 +2,7 @@
 
 **A simple, powerful, and extensible Node.js logging system.**
 
-👷🏼‍♀️*Under development*
+👷 *Under development*
 
 ```javascript
 const { Logger } = require('@reallyuseful/logger');
