@@ -2,21 +2,34 @@ import { ConsoleTransport } from './consoleTransport';
 import { Level } from './level';
 import { Transport } from './transport';
 
+/**
+ * The @reallyuseful Logger.
+ */
 export class Logger {
   private readonly transports: Transport[];
 
+  /**
+   * Construct a new Logger using the provided Transports.
+   * @param transports array of Transports to use. If not provided, creates a
+   *  ConsoleTransport
+   */
   constructor(transports: Transport | Transport[] = new ConsoleTransport()) {
     this.transports = (Array.isArray(transports) && transports) || [transports];
   }
 
-  /** Write a log entry to all configured transports. */
+  /**
+   * Write a log entry to all configured transports.
+   * @param level the severity level
+   * @param details the details to be logged
+   */
   log(level: Level, ...details: any[]): Promise<void> {
-    const promises = this.transports.map(transport => {
-      if (typeof transport.level === 'number' && level > transport.level) {
-        return; // not severe enough to log
-      }
-      return transport.log(level, ...details);
-    });
+    // only log to transports configured for this severity level
+    const transportsToLog = this.transports.filter(
+      transport => typeof transport.level !== 'number' || level < transport.level
+    );
+
+    const promises = transportsToLog.map(transport => transport.log(level, ...details));
+
     return Promise.all(promises).then(() => {});
   }
 
