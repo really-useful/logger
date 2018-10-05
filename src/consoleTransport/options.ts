@@ -1,13 +1,15 @@
 import { Level } from '../level';
 
-/** the available options for configuring the console transport */
+/** the available options for configuring the ConsoleTransport */
 export default interface ConsoleTransportOptions {
-  /** don’t log anything below this severity level */
+  /** don’t log anything below this severity level (default: log everything) */
   level?: Level;
-  /** if true, console output is colorized */
+  /** if true, console output is colorized (default: true) */
   color?: boolean;
-  /** if true, console output is prefixed with the current timestamp */
+  /** if true, console output is prefixed with the current timestamp (default: true) */
   timestamps?: boolean;
-  /** if true, timestamps are printed in UTC instead of local time */
+  /** if true, timestamps are printed in UTC instead of local time (default: false) */
   useUtc?: boolean;
+  /** if provided, prefix each log messeage’s details with this string */
+  prefix?: string;
 }

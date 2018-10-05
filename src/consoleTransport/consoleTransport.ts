@@ -25,7 +25,7 @@ export class ConsoleTransport implements Transport {
     this.options = Object.assign({}, ConsoleDefaults, options);
   }
 
-  /** tell the Logger to only send us messages of this severity level or greater */
+  /** tell the Logger to only send us messages of this severity level or above */
   get level() {
     return this.options.level;
   }
@@ -134,6 +134,11 @@ export class ConsoleTransport implements Transport {
 
     output += ConsoleTransport.getLevelString(level, this.options.color);
     output += spaces;
+
+    if (this.options.prefix) {
+      output += this.options.prefix;
+      output += '  ';
+    }
 
     output += ConsoleTransport.getFormattedMessage(details, this.options.color);
 
