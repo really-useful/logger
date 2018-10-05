@@ -53,10 +53,9 @@ logger.emerg(…);
 You can pass anything you like as arguments to the logging functions. Standard practice is to pass a string as the first argument, followed by additional JavaScript objects that you want to log. Notice that this is a drop-in replacement for most usages of the `console.*` JavaScript functions.
 
 ```javascript
-logger.info('This is a string', { extraInfo: 42 }, [
-  'Gryffindor',
-  'Hufflepuff',
-  'Ravenclaw',
-  'Slytherin'
-]);
+logger.info(
+  'This is a string',
+  { extraInfo: 42 },
+  [ 'Gryffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin']
+);
 ```
