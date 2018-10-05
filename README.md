@@ -36,8 +36,8 @@ Each logging function returns a `Promise` that you can `await`. The `Promise` is
 const logger = new Logger([array of Transports]);
 ```
 
-* If you don’t provide any transports, you’ll get a `ConsoleTransport`.
-* Logging functions are named after the [syslog severity levels](https://en.wikipedia.org/wiki/Syslog#Severity_level). From least- to most-severe:
+- If you don’t provide any transports, you’ll get a `ConsoleTransport`.
+- Logging functions are named after the [syslog severity levels](https://en.wikipedia.org/wiki/Syslog#Severity_level). From least- to most-severe:
 
 ```javascript
 logger.debug(…);
@@ -53,13 +53,10 @@ logger.emerg(…);
 You can pass anything you like as arguments to the logging functions. Standard practice is to pass a string as the first argument, followed by additional JavaScript objects that you want to log. Notice that this is a drop-in replacement for most usages of the `console.*` JavaScript functions.
 
 ```javascript
-logger.info(
-    'This is a string', 
-    { extraInfo: 42 }, 
-    [ 'Gryffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin' ]
-);
+logger.info('This is a string', { extraInfo: 42 }, [
+  'Gryffindor',
+  'Hufflepuff',
+  'Ravenclaw',
+  'Slytherin'
+]);
 ```
-
-## License
-
-BSD-3-Clause
