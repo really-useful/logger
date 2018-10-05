@@ -2,7 +2,6 @@ import * as util from 'util';
 import { Level } from '../level';
 import { Transport } from '../transport';
 import ConsoleColors from './colors';
-import countFormatPlaceholders from './countFormatPlaceholders';
 import ConsoleDefaults from './defaults';
 import formatTimestamp from './formatTimestamp';
 import levelFunctions from './levelFunctions';
@@ -22,44 +21,60 @@ function noop(x: string) {
 export class ConsoleTransport implements Transport {
   private readonly options: ConsoleTransportOptions;
 
+  /** create a new ConsoleTransport */
   constructor(options?: ConsoleTransportOptions) {
     this.options = Object.assign({}, ConsoleDefaults, options);
   }
 
+  /** tell the logger to only send us messages of this severity level or greater */
   get level() {
     return this.options.level;
   }
 
+  /** get the column that log details are aligned to */
   private get alignColumn() {
     return this.options.timestamps ? 36 : 11;
   }
 
-  /** format the details portion of the output */
-  private formatMessage(details: any[]) {
-    // function used to syntax-highlight the details JSON
-    const syntaxHighlightFn = (this.options.color && highlight) || noop;
+  /** get the name of the severity level, formatted */
+  private static getLevelString(level: Level, color = true) {
+    const levelColorFn = (color && ConsoleColors[level]) || noop;
+    return `[${levelColorFn(Level[level])}]`;
+  }
 
-    return details
-      .map(detail => {
+  /** format one detail item */
+  private static formatDetailItem(detail: any, color = true) {
+    const syntaxHighlightFn = (color && highlight) || noop;
+    let result: string;
+
+    switch (typeof detail) {
+      case 'string':
         // strings are passed through unchanged
-        if (typeof detail === 'string') {
-          return detail;
-        }
+        result = detail;
+        break;
 
+      case 'function':
         // functions are stringified and highlighted
-        if (typeof detail === 'function') {
-          return syntaxHighlightFn(detail.toString());
-        }
+        result = syntaxHighlightFn(detail.toString());
+        break;
 
+      default:
         // everything else is formatted and highlighted
-        return syntaxHighlightFn(util.format('%O', detail));
-      })
+        result = syntaxHighlightFn(util.format('%O', detail));
+    }
+
+    return result;
+  }
+
+  /** format the details portion of the output */
+  private static formatMessage(details: any[], color = true) {
+    return details
+      .map(detail => ConsoleTransport.formatDetailItem(detail, color))
       .join(' ');
   }
 
-  /** log to the console */
-  async log(level: Level, ...details: any[]): Promise<void> {
-    // how many spaces are needed to make the output line up?
+  /** calculate how many spaces will be required to align the details output */
+  private getSpaceCount(level: Level) {
     let messageLength = 0;
 
     if (this.options.timestamps) {
@@ -67,14 +82,16 @@ export class ConsoleTransport implements Transport {
       messageLength += 2; // 2 spaces after timestamp
     }
 
-    messageLength += `[${Level[level]}]`.length;
+    messageLength += ConsoleTransport.getLevelString(level, false).length;
     messageLength + 2; // min 2 spaces after the [level]
 
-    const spacesNeeded = Math.max(0, this.alignColumn - messageLength);
-    const spaces = ' '.repeat(spacesNeeded);
+    return Math.max(0, this.alignColumn - messageLength);
+  }
 
-    // function used to colorize the [level] text
-    const levelColorFn = (this.options.color && ConsoleColors[level]) || noop;
+  /** log to the console */
+  async log(level: Level, ...details: any[]): Promise<void> {
+    const spacesNeeded = this.getSpaceCount(level);
+    const spaces = ' '.repeat(spacesNeeded);
 
     // build the output message
     let output = '';
@@ -84,31 +101,10 @@ export class ConsoleTransport implements Transport {
       output += '  ';
     }
 
-    output += `[${levelColorFn(Level[level])}]`;
+    output += ConsoleTransport.getLevelString(level, this.options.color);
     output += spaces;
 
-    // support format placeholders, similar to the console.* functions
-    if (typeof details[0] === 'string') {
-      const placeholdersCount = countFormatPlaceholders(details[0]);
-      if (placeholdersCount) {
-        // build the message using its placeholders
-        const message = util.format(
-          details[0],
-          ...details.slice(1, placeholdersCount + 1)
-        );
-        // any additional details get passed through as usual
-        const messageAndRemainingDetails = Array.prototype.concat(
-          message,
-          details.slice(placeholdersCount + 1)
-        );
-        output += this.formatMessage(messageAndRemainingDetails);
-      } else {
-        // string, but no placeholders
-        output += this.formatMessage(details);
-      }
-    } else {
-      output += this.formatMessage(details);
-    }
+    output += ConsoleTransport.formatMessage(details, this.options.color);
 
     const outputFn = levelFunctions[level];
     outputFn(output);

@@ -30,6 +30,7 @@ export class Logger {
 
     const promises = transportsToLog.map(transport => transport.log(level, ...details));
 
+    // return a Promise<void> (not an array of what the transports returned)
     return Promise.all(promises).then(() => {});
   }
 
