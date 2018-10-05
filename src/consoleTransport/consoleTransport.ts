@@ -12,7 +12,7 @@ const { highlight } = require('cardinal');
 // length of the timestamp string returned by formatTimestamp()
 const TIMESTAMP_LENGTH = 23;
 
-// if we aren’t using colors, we use this do-nothing function to (not) colorize output
+/** if we aren’t using colors, we use this do-nothing function to (not) colorize output */
 function noop(x: string) {
   return x;
 }
