@@ -1,10 +1,8 @@
 # @reallyuseful/logger
 
---
-👷🏼‍♀️ Under development
-
---
 **A simple, powerful, and extensible Node.js logging system.**
+
+👷🏼‍♀️*Under development*
 
 ```javascript
 const { Logger } = require('@reallyuseful/logger');
@@ -12,6 +10,8 @@ const myLogger = new Logger();
 myLogger.info('🌍 Hello, world!');
 myLogger.err('💥 An error occurred.', { context: 42 });
 ```
+
+![Screenshot](/screenshot.png)
 
 ## Logging to external services
 
