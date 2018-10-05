@@ -42,7 +42,7 @@ export class ConsoleTransport implements Transport {
   }
 
   /** format one detail item */
-  private static formatDetailItem(detail: any, color = true) {
+  private static getFormattedDetailItem(detail: any, color = true) {
     const syntaxHighlightFn = (color && highlight) || noop;
     let result: string;
 
@@ -66,14 +66,14 @@ export class ConsoleTransport implements Transport {
   }
 
   /** format the details portion of the output */
-  private static formatMessage(details: any[], color = true) {
+  private static getFormattedMessage(details: any[], color = true) {
     return details
-      .map(detail => ConsoleTransport.formatDetailItem(detail, color))
+      .map(detail => ConsoleTransport.getFormattedDetailItem(detail, color))
       .join(' ');
   }
 
   /** return an ISO-8601 formatted timestamp string */
-  private static formatTimestamp(useUtc: boolean, date = new Date()) {
+  private static getTimestamp(useUtc: boolean, date = new Date()) {
     const [yr, mo, day, hr, min, sec, milli] = (useUtc && [
       date.getUTCFullYear(),
       date.getUTCMonth() + 1,
@@ -128,14 +128,14 @@ export class ConsoleTransport implements Transport {
     let output = '';
 
     if (this.options.timestamps) {
-      output += ConsoleTransport.formatTimestamp(this.options.useUtc || false);
+      output += ConsoleTransport.getTimestamp(this.options.useUtc || false);
       output += '  ';
     }
 
     output += ConsoleTransport.getLevelString(level, this.options.color);
     output += spaces;
 
-    output += ConsoleTransport.formatMessage(details, this.options.color);
+    output += ConsoleTransport.getFormattedMessage(details, this.options.color);
 
     const outputFn = levelFunctions[level];
     outputFn(output);
