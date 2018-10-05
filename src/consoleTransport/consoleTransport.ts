@@ -3,7 +3,6 @@ import { Level } from '../level';
 import { Transport } from '../transport';
 import ConsoleColors from './colors';
 import ConsoleDefaults from './defaults';
-import formatTimestamp from './formatTimestamp';
 import levelFunctions from './levelFunctions';
 import ConsoleTransportOptions from './options';
 
@@ -26,7 +25,7 @@ export class ConsoleTransport implements Transport {
     this.options = Object.assign({}, ConsoleDefaults, options);
   }
 
-  /** tell the logger to only send us messages of this severity level or greater */
+  /** tell the Logger to only send us messages of this severity level or greater */
   get level() {
     return this.options.level;
   }
@@ -73,6 +72,39 @@ export class ConsoleTransport implements Transport {
       .join(' ');
   }
 
+  /** return an ISO-8601 formatted timestamp string */
+  private static formatTimestamp(useUtc: boolean, date = new Date()) {
+    const [yr, mo, day, hr, min, sec, milli] = (useUtc && [
+      date.getUTCFullYear(),
+      date.getUTCMonth() + 1,
+      date.getUTCDate(),
+      date.getUTCHours(),
+      date.getUTCMinutes(),
+      date.getUTCSeconds(),
+      date.getUTCMilliseconds()
+    ]) || [
+      date.getFullYear(),
+      date.getMonth() + 1,
+      date.getDate(),
+      date.getHours(),
+      date.getMinutes(),
+      date.getSeconds(),
+      date.getMilliseconds()
+    ];
+
+    const yrStr = yr.toString();
+    const moStr = mo.toString().padStart(2, '0');
+    const dayStr = day.toString().padStart(2, '0');
+    const hrStr = hr.toString().padStart(2, '0');
+    const minStr = min.toString().padStart(2, '0');
+    const secStr = sec.toString().padStart(2, '0');
+    const milliStr = milli.toString().padStart(3, '0');
+
+    let result = `${yrStr}-${moStr}-${dayStr} ${hrStr}:${minStr}:${secStr}.${milliStr}`;
+
+    return result;
+  }
+
   /** calculate how many spaces will be required to align the details output */
   private getSpaceCount(level: Level) {
     let messageLength = 0;
@@ -93,11 +125,10 @@ export class ConsoleTransport implements Transport {
     const spacesNeeded = this.getSpaceCount(level);
     const spaces = ' '.repeat(spacesNeeded);
 
-    // build the output message
     let output = '';
 
     if (this.options.timestamps) {
-      output += formatTimestamp(this.options.useUtc || false);
+      output += ConsoleTransport.formatTimestamp(this.options.useUtc || false);
       output += '  ';
     }
 
