@@ -68,16 +68,8 @@ export class ConsoleTransport implements Transport {
   }
 
   /** get an ISO-8601 timestamp string */
-  private static getTimestamp(useUtc: boolean, date = new Date()) {
-    const [yr, mo, day, hr, min, sec, milli] = (useUtc && [
-      date.getUTCFullYear(),
-      date.getUTCMonth() + 1,
-      date.getUTCDate(),
-      date.getUTCHours(),
-      date.getUTCMinutes(),
-      date.getUTCSeconds(),
-      date.getUTCMilliseconds()
-    ]) || [
+  private static getTimestamp(date = new Date()) {
+    const [yr, mo, day, hr, min, sec, milli] = [
       date.getFullYear(),
       date.getMonth() + 1,
       date.getDate(),
@@ -123,7 +115,7 @@ export class ConsoleTransport implements Transport {
     let output = '';
 
     if (this.options.timestamps) {
-      output += ConsoleTransport.getTimestamp(this.options.useUtc || false);
+      output += ConsoleTransport.getTimestamp();
       output += '  ';
     }
 

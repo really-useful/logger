@@ -66,7 +66,6 @@ ConsoleTransport can be customized with any of the following options:
 - **level** (Level): Don’t log anything below this severity level. Default: log everything
 - **color** (boolean): If `true`, console output is colorized. Default: `true`
 - **timestamps** (boolean): If `true`, console output is prefixed with the current timestamp. Default: `true`
-- **useUtc** (boolean): If `true`, timestamps are printed in UTC instead of local time. Default: `false`
 - **prefix** (string): If provided, prefix each log message’s details with this string.
 
 ```javascript

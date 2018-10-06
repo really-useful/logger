@@ -8,8 +8,6 @@ export default interface ConsoleTransportOptions {
   color?: boolean;
   /** if true, console output is prefixed with the current timestamp (default: true) */
   timestamps?: boolean;
-  /** if true, timestamps are printed in UTC instead of local time (default: false) */
-  useUtc?: boolean;
   /** if provided, prefix each log message’s details with this string */
   prefix?: string;
 }
