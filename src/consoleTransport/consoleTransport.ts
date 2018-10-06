@@ -102,7 +102,6 @@ export class ConsoleTransport implements Transport {
     }
 
     messageLength += ConsoleTransport.getLevelString(level, false).length;
-    messageLength + 2; // min 2 spaces after the [level]
 
     return Math.max(0, this.alignColumn - messageLength);
   }
