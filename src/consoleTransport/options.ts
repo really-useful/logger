@@ -10,6 +10,6 @@ export default interface ConsoleTransportOptions {
   timestamps?: boolean;
   /** if true, timestamps are printed in UTC instead of local time (default: false) */
   useUtc?: boolean;
-  /** if provided, prefix each log messeage’s details with this string */
+  /** if provided, prefix each log message’s details with this string */
   prefix?: string;
 }

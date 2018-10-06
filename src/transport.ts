@@ -2,12 +2,9 @@ import { Level } from './level';
 
 /** Anything that implements this interface may be used as a transport. */
 export interface Transport {
-  /** Log entries must be at least this severity, or they will be ignored. */
+  /** Minimum severity to be logged. */
   level?: Level;
 
-  /**
-   * Write a log entry. The Promise should be resolved only after the log entry has been
-   * committed.
-   */
+  /** Write a log entry. Don’t resolve the Promise until the log entry has been saved. */
   log(level: Level, ...details: any[]): PromiseLike<void>;
 }

@@ -1,4 +1,4 @@
-/** Standard syslog logging levels. Lower numbers indicate higher severity, */
+/** Logging levels. Lower numbers indicate higher severity. */
 export enum Level {
   /** System is unusable */
   emerg = 0,

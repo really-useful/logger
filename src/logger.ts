@@ -10,8 +10,8 @@ export class Logger {
 
   /**
    * Construct a new Logger using the provided Transports.
-   * @param transports array of Transports to use. If not provided, creates a
-   *  ConsoleTransport
+   * @param transports a transport or an array of Transports to use. If not provided,
+   *  creates a ConsoleTransport.
    */
   constructor(transports: Transport | Transport[] = new ConsoleTransport()) {
     this.transports = (Array.isArray(transports) && transports) || [transports];
@@ -24,7 +24,6 @@ export class Logger {
    */
   log(level: Level, ...details: any[]) {
     if (!details.length) {
-      // nothing to log
       return Promise.resolve();
     }
 
@@ -35,7 +34,6 @@ export class Logger {
 
     const promises = transportsToLog.map(transport => transport.log(level, ...details));
 
-    // return a Promise<void> (not an array of what the transports returned)
     return Promise.all(promises).then(() => {});
   }
 
