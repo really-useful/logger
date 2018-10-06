@@ -11,11 +11,6 @@ const { highlight } = require('cardinal');
 // length of the timestamp string returned by formatTimestamp()
 const TIMESTAMP_LENGTH = 23;
 
-/** if we aren’t using colors, we use this do-nothing function to (not) colorize output */
-function noop(x: string) {
-  return x;
-}
-
 /** Log to the console. */
 export class ConsoleTransport implements Transport {
   private readonly options: ConsoleTransportOptions;
@@ -25,25 +20,25 @@ export class ConsoleTransport implements Transport {
     this.options = Object.assign({}, ConsoleDefaults, options);
   }
 
-  /** tell the Logger to only send us messages of this severity level or above */
+  /** tell the Logger to only send us messages of this severity level or higher */
   get level() {
     return this.options.level;
   }
 
-  /** get the column that log details are aligned to */
+  /** get the column that details are aligned to */
   private get alignColumn() {
     return this.options.timestamps ? 36 : 11;
   }
 
   /** get the name of the severity level, formatted */
   private static getLevelString(level: Level, color = true) {
-    const levelColorFn = (color && ConsoleColors[level]) || noop;
+    const levelColorFn = (color && ConsoleColors[level]) || ((x: string) => x);
     return `[${levelColorFn(Level[level])}]`;
   }
 
   /** format one detail item */
   private static getFormattedDetailItem(detail: any, color = true) {
-    const syntaxHighlightFn = (color && highlight) || noop;
+    const syntaxHighlightFn = (color && highlight) || ((x: string) => x);
     let result: string;
 
     switch (typeof detail) {
@@ -72,7 +67,7 @@ export class ConsoleTransport implements Transport {
       .join(' ');
   }
 
-  /** return an ISO-8601 formatted timestamp string */
+  /** get an ISO-8601 timestamp string */
   private static getTimestamp(useUtc: boolean, date = new Date()) {
     const [yr, mo, day, hr, min, sec, milli] = (useUtc && [
       date.getUTCFullYear(),
