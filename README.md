@@ -75,7 +75,7 @@ const logger = new Logger(transport);
 
 ## Add your own logging service
 
-To log to a service that isn’t listed above, you create your own `Transport`.
+To log to a service that isn’t listed above, you can create your own `Transport`.
 
 A `Transport` is any object with the following properties:
 
