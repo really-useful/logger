@@ -1,6 +1,6 @@
 # @reallyuseful/logger
 
-**A simple, powerful, and extensible Node.js logging system.**
+**A simple and extensible logging system for Node.js.**
 
 👷 *Under development*
 
@@ -15,20 +15,18 @@ myLogger.err('💥 An error occurred.', { context: 42 });
 
 ## Logging to external services
 
-By default log messages are printed to the console. They can also be sent to external services. Here are some `Transports` that will be available:
+You can log to multiple services at once.
 
-- Log to the console: `ConsoleTransport`
+- The console: `ConsoleTransport`
 - AWS CloudWatch Logs
 - Sentry.io
 - syslog and Papertrail.io via rsyslog
 - Graylog/GELF
 - Any other service: adding a new `Transport` is easy
 
-You can use multiple transports, and each can have a different severity level. You might print debug messages to the console, but only send a message to CloudWatch if it’s a warning or more severe.
-
 ## Promises
 
-Each logging function returns a `Promise` that you can `await`. The `Promise` is resolved once all transports have finished logging. This is useful with AWS Lambda, which might otherwise pause or terminate your app before logging is complete.
+Each logging function returns a `Promise` that is resolved once all transports have finished logging.
 
 ## Usage
 
@@ -37,7 +35,7 @@ const logger = new Logger([array of Transports]);
 ```
 
 - If you don’t provide any transports, you’ll get a `ConsoleTransport`.
-- Logging functions are named after the [syslog severity levels](https://en.wikipedia.org/wiki/Syslog#Severity_level). From least- to most-severe:
+- Logging functions are named after the [syslog severity levels](https://en.wikipedia.org/wiki/Syslog#Severity_level). Here they are from least- to most-severe:
 
 ```javascript
 logger.debug(…);
@@ -50,7 +48,7 @@ logger.alert(…);
 logger.emerg(…);
 ```
 
-You can pass anything you like as arguments to the logging functions. Standard practice is to pass a string as the first argument, followed by additional JavaScript objects that you want to log. Notice that this is a drop-in replacement for most usages of the `console.*` JavaScript functions.
+You can pass anything as arguments to these functions. Standard practice is to pass a string as the first argument, followed by additional JavaScript objects that you want to log. (Just like `console.log`.)
 
 ```javascript
 logger.info(
@@ -59,3 +57,22 @@ logger.info(
   [ 'Gryffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin' ]
 );
 ```
+
+## Add your own logging service
+
+If you need to log to a service that isn’t listed above, you can easily add support by creating a `Transport` for it.
+
+A `Transport` is any object with the following properties:
+
+* A `log()` method.
+* A `level` properity (optional).
+
+### log(level, ...details)
+
+The `log` method takes a severity level as its first argument. Any additional arguments are the details to be logged.
+
+The `log` method returns a `Promise`, and you should not resolve it until logging is complete. For example, if you are logging to a file, don’t resolve the `Promise` until the message has been written to disk.
+
+### level *optional property*
+
+If your transport object has a `level` property, this is the *minimum* severity to be logged. For example if your object has a `level` property that is set to `Level.warning`, then your transport will receive log messages for `warning`, `err`, `crit`, `alert` and `emerg`, but not for `debug`, `info` or `notice`.
