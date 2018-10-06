@@ -2,7 +2,7 @@
 
 **A simple and extensible logging system for Node.js.**
 
-👷 *Under development*
+👷 _Under development_
 
 ```javascript
 const { Logger } = require('@reallyuseful/logger');
@@ -51,21 +51,22 @@ logger.emerg(…);
 You can pass anything as arguments to these functions. Standard practice is to pass a string as the first argument, followed by additional JavaScript objects that you want to log. (Just like `console.log`.)
 
 ```javascript
-logger.info(
-  'This is a string',
-  { extraInfo: 42 },
-  [ 'Gryffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin' ]
-);
+logger.info('This is a string', { extraInfo: 42 }, [
+  'Gryffindor',
+  'Hufflepuff',
+  'Ravenclaw',
+  'Slytherin'
+]);
 ```
 
 ## Add your own logging service
 
-If you need to log to a service that isn’t listed above, you can easily add support by creating a `Transport` for it.
+If you need to log to a service that isn’t listed above, you can add support by creating a `Transport` for it.
 
 A `Transport` is any object with the following properties:
 
-* A `log()` method.
-* A `level` property (optional).
+- A `log()` method.
+- A `level` property (optional).
 
 ### log(level, ...details)
 
@@ -73,6 +74,6 @@ The `log` method takes a severity level as its first argument. Any additional ar
 
 The `log` method returns a `Promise`, and you should not resolve it until logging is complete. For example, if you are logging to a file, don’t resolve the `Promise` until the message has been written to disk.
 
-### level *optional property*
+### level _optional property_
 
-If your transport object has a `level` property, this is the *minimum* severity to be logged. For example if your object has a `level` property that is set to `Level.warning`, then your transport will receive log messages for `warning`, `err`, `crit`, `alert` and `emerg`, but not for `debug`, `info` or `notice`.
+If your transport object has a `level` property, this is the _minimum_ severity to be logged. For example if your object has a `level` property that is set to `Level.warning`, then your transport will receive log messages for `warning`, `err`, `crit`, `alert` and `emerg`, but not for `debug`, `info` or `notice`.
