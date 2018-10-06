@@ -36,5 +36,18 @@
     "chalk": "^2.4.1",
     "highlight.js": "^9.12.0",
     "testdouble": "^3.8.1"
+  },
+  "ava": {
+    "compileEnhancements": false,
+    "extensions": [
+      "ts"
+    ],
+    "require": [
+      "ts-node/register/transpile-only"
+    ]
+  },
+  "prettier": {
+    "printWidth": 90,
+    "singleQuote": true
   }
 }
