@@ -17,10 +17,10 @@ myLogger.err('💥 An error occurred.', { context: 42 });
 
 You can log to multiple services at once.
 
-- The console: [`ConsoleTransport`](#options-for-the-consoletransport)
+- The console: [`ConsoleTransport`](#options-for-consoletransport)
 - AWS CloudWatch Logs
 - Sentry.io
-- syslog and Papertrail.io via rsyslog
+- syslog and Papertrail via rsyslog
 - Graylog/GELF
 - Any other service: [adding a new `Transport` is easy](#add-your-own-logging-service)
 
@@ -59,9 +59,9 @@ logger.info(
 );
 ```
 
-## Options for the ConsoleTransport
+## Options for ConsoleTransport
 
-ConsoleTransport can be customized with any of the following options:
+ConsoleTransport can be customized with the following options:
 
 - **level** (Level): Don’t log anything below this severity level. Default: log everything
 - **color** (boolean): If `true`, console output is colorized. Default: `true`

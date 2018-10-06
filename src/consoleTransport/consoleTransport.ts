@@ -21,8 +21,8 @@ export class ConsoleTransport implements Transport {
   }
 
   /** tell the Logger to only send us messages with this severity level or higher */
-  get level() {
-    return this.options.level;
+  get minimumSeverity() {
+    return this.options.minimumSeverity;
   }
 
   /** get the column that details are aligned to */

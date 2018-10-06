@@ -29,7 +29,9 @@ export class Logger {
 
     // only log to transports configured for this severity level
     const transportsToLog = this.transports.filter(
-      transport => typeof transport.level !== 'number' || level <= transport.level
+      transport =>
+        typeof transport.minimumSeverity !== 'number' ||
+        level <= transport.minimumSeverity
     );
 
     const promises = transportsToLog.map(transport => transport.log(level, ...details));

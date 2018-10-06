@@ -4,7 +4,7 @@ import { Logger } from './logger';
 import { Transport } from './transport';
 
 class FakeTransport implements Transport {
-  public level: Level | undefined = undefined;
+  public minimumSeverity: Level | undefined = undefined;
   public timesCalled = 0;
   public calls: { [level: string]: number } = {};
   public log(level: Level) {
@@ -33,7 +33,7 @@ test('basic logging works', async t => {
 
 test('messages below the minimum severity level are ignored', async t => {
   const transport = new FakeTransport();
-  transport.level = Level.err;
+  transport.minimumSeverity = Level.err;
   const logger = new Logger(transport);
   await logger.emerg('emerg');
   await logger.alert('alert');
