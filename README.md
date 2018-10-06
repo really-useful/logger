@@ -53,8 +53,8 @@ You can pass anything as arguments to these functions. It’s common to pass a s
 <!-- prettier-ignore -->
 ```javascript
 logger.info(
-  'This is a string', 
-  { extraInfo: 42 }, 
+  'This is a string',
+  { extraInfo: 42 },
   [ 'Gryffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin' ]
 );
 ```
@@ -63,11 +63,11 @@ logger.info(
 
 ConsoleTransport can be customized with any of the following options:
 
-- **level** (Level): don’t log anything below this severity level. (default: log everything)
-- **color** (boolean): if `true`, console output is colorized (default: `true`)
-- **timestamps** (boolean): if `true`, console output is prefixed with the current timestamp (default: `true`)
-- **useUtc** (boolean): if `true`, timestamps are printed in UTC instead of loca time (default: `false`)
-- **prefix** (string): if provided, prefix each log message’s details with this string
+- **level** (Level): Don’t log anything below this severity level. Default: log everything
+- **color** (boolean): If `true`, console output is colorized. Default: `true`
+- **timestamps** (boolean): If `true`, console output is prefixed with the current timestamp. Default: `true`
+- **useUtc** (boolean): If `true`, timestamps are printed in UTC instead of local time. Default: `false`
+- **prefix** (string): If provided, prefix each log message’s details with this string.
 
 ```javascript
 const transport = new ConsoleTransport({ <options> });
