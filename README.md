@@ -22,7 +22,7 @@ You can log to multiple services at once.
 - Sentry.io
 - syslog and Papertrail.io via rsyslog
 - Graylog/GELF
-- Any other service: adding a new `Transport` is easy
+- Any other service: [adding a new `Transport` is easy](#add-your-own-logging-service)
 
 ## Promises
 
@@ -65,7 +65,7 @@ If you need to log to a service that isn’t listed above, you can easily add su
 A `Transport` is any object with the following properties:
 
 * A `log()` method.
-* A `level` properity (optional).
+* A `level` property (optional).
 
 ### log(level, ...details)
 
