@@ -1,7 +1,8 @@
 import test, { afterEach, beforeEach } from 'ava';
 import * as td from 'testdouble';
 import { Level } from '../level';
-import levelFunctions from './levelFunctions';
+import { ConsoleTransport } from './consoleTransport';
+import { LevelFunctions } from './levelFunctions';
 
 let level0: any,
   level1: any,
@@ -12,19 +13,15 @@ let level0: any,
   level6: any,
   level7: any;
 
-let ConsoleTransport: any;
-
 beforeEach(() => {
-  level0 = td.replace(levelFunctions, 'emerg');
-  level1 = td.replace(levelFunctions, 'alert');
-  level2 = td.replace(levelFunctions, 'crit');
-  level3 = td.replace(levelFunctions, 'err');
-  level4 = td.replace(levelFunctions, 'warning');
-  level5 = td.replace(levelFunctions, 'notice');
-  level6 = td.replace(levelFunctions, 'info');
-  level7 = td.replace(levelFunctions, 'debug');
-
-  ConsoleTransport = require('./consoleTransport').ConsoleTransport;
+  level0 = td.replace(LevelFunctions, 'emerg');
+  level1 = td.replace(LevelFunctions, 'alert');
+  level2 = td.replace(LevelFunctions, 'crit');
+  level3 = td.replace(LevelFunctions, 'err');
+  level4 = td.replace(LevelFunctions, 'warning');
+  level5 = td.replace(LevelFunctions, 'notice');
+  level6 = td.replace(LevelFunctions, 'info');
+  level7 = td.replace(LevelFunctions, 'debug');
 });
 
 afterEach(() => {

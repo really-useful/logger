@@ -1,7 +1,7 @@
-import ConsoleTransportOptions from './options';
+import { ConsoleTransportOptions } from './options';
 
 /** default values for ConsoleTransportOptions */
-export default {
+export const ConsoleTransportDefaults: ConsoleTransportOptions = {
   color: true,
   timestamps: true
-} as ConsoleTransportOptions;
+};

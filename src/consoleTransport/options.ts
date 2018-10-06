@@ -1,7 +1,7 @@
 import { Level } from '../level';
 
 /** the available options for configuring the ConsoleTransport */
-export default interface ConsoleTransportOptions {
+export interface ConsoleTransportOptions {
   /** don’t log anything below this severity level (default: log everything) */
   level?: Level;
   /** if true, console output is colorized (default: true) */

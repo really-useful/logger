@@ -1,10 +1,10 @@
 import * as util from 'util';
 import { Level } from '../level';
 import { Transport } from '../transport';
-import ConsoleColors from './colors';
-import ConsoleDefaults from './defaults';
-import levelFunctions from './levelFunctions';
-import ConsoleTransportOptions from './options';
+import { ColorFunctions } from './colorFunctions';
+import { ConsoleTransportDefaults } from './defaults';
+import { LevelFunctions } from './levelFunctions';
+import { ConsoleTransportOptions } from './options';
 
 const { highlight } = require('cardinal');
 
@@ -17,10 +17,10 @@ export class ConsoleTransport implements Transport {
 
   /** create a new ConsoleTransport */
   constructor(options?: ConsoleTransportOptions) {
-    this.options = Object.assign({}, ConsoleDefaults, options);
+    this.options = Object.assign({}, ConsoleTransportDefaults, options);
   }
 
-  /** tell the Logger to only send us messages of this severity level or higher */
+  /** tell the Logger to only send us messages with this severity level or higher */
   get level() {
     return this.options.level;
   }
@@ -32,7 +32,7 @@ export class ConsoleTransport implements Transport {
 
   /** get the name of the severity level, formatted */
   private static getLevelString(level: Level, color = true) {
-    const levelColorFn = (color && ConsoleColors[level]) || ((x: string) => x);
+    const levelColorFn = (color && ColorFunctions[level]) || ((x: string) => x);
     return `[${levelColorFn(Level[level])}]`;
   }
 
@@ -128,7 +128,7 @@ export class ConsoleTransport implements Transport {
 
     output += ConsoleTransport.getFormattedMessage(details, this.options.color);
 
-    const outputFn = levelFunctions[Level[level]];
+    const outputFn = LevelFunctions[Level[level]];
     outputFn(output);
   }
 }
