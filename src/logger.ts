@@ -22,10 +22,15 @@ export class Logger {
    * @param level the severity level
    * @param details the details to be logged
    */
-  log(level: Level, ...details: any[]): Promise<void> {
+  log(level: Level, ...details: any[]) {
+    if (!details.length) {
+      // nothing to log
+      return Promise.resolve();
+    }
+
     // only log to transports configured for this severity level
     const transportsToLog = this.transports.filter(
-      transport => typeof transport.level !== 'number' || level < transport.level
+      transport => typeof transport.level !== 'number' || level <= transport.level
     );
 
     const promises = transportsToLog.map(transport => transport.log(level, ...details));

@@ -142,7 +142,7 @@ export class ConsoleTransport implements Transport {
 
     output += ConsoleTransport.getFormattedMessage(details, this.options.color);
 
-    const outputFn = levelFunctions[level];
+    const outputFn = levelFunctions[Level[level]];
     outputFn(output);
   }
 }
