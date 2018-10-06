@@ -75,12 +75,12 @@ const logger = new Logger(transport);
 
 ## Add your own logging service
 
-To log to a service that isn’t listed above, you can add support by creating a `Transport`.
+To log to a service that isn’t listed above, you create your own `Transport`.
 
 A `Transport` is any object with the following properties:
 
-- A `log()` method.
-- A `level` property (optional).
+- A `log()` method
+- A `level` property (optional)
 
 ### log(level, ...details)
 
@@ -96,7 +96,7 @@ If your transport object has a `level` property, this is the _minimum_ severity 
 const verySimpleTransport = {
   level: Level.warning,
   log: (level, ...details) => {
-    console.log(`${Level[level]} - `, ...details);
+    console.log(Level[level], ...details);
     return Promise.resolve();
   }
 };
