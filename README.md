@@ -17,7 +17,7 @@ myLogger.err('💥 An error occurred.', { context: 42 });
 
 You can log to multiple services at once.
 
-- The console: `ConsoleTransport`
+- The console: [`ConsoleTransport`](#options-for-the-consoletransport)
 - AWS CloudWatch Logs
 - Sentry.io
 - syslog and Papertrail.io via rsyslog
