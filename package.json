@@ -1,6 +1,6 @@
 {
   "name": "@reallyuseful/logger",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "description": "A useful and simple Node.js logging system.",
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
@@ -24,13 +24,13 @@
   },
   "devDependencies": {
     "@types/chalk": "^2.2.0",
-    "@types/node": "^10.11.4",
-    "ava": "1.0.0-beta.8",
+    "@types/node": "^10.12.10",
+    "ava": "1.0.0-rc.2",
     "del-cli": "^1.1.0",
-    "prettier": "^1.14.3",
-    "testdouble": "^3.8.1",
+    "prettier": "^1.15.2",
+    "testdouble": "^3.9.0",
     "ts-node": "^7.0.1",
-    "typescript": "^3.1.1"
+    "typescript": "^3.1.6"
   },
   "dependencies": {
     "cardinal": "^2.1.1",
