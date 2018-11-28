@@ -21,7 +21,7 @@ You can log to multiple services at once.
 - AWS CloudWatch Logs
 - Sentry.io
 - syslog and Papertrail via rsyslog
-- Graylog/GELF
+- [Graylog/GELF](https://github.com/really-useful/logger-transport-gelf)
 - Any other service: [adding a new `Transport` is easy](#add-your-own-logging-service)
 
 ## Promises
